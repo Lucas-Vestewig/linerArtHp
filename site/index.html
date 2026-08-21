@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lineart HP — Comunicação Visual em Grande Formato | Blumenau/SC</title>
+<meta name="description" content="Impressão de outdoors, lonas, adesivos e projetos especiais em Blumenau/SC. Produção própria, entrega rápida e equipamentos de ponta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0b0c;
+    --ink-soft:#242127;
+    --paper:#f7f4ee;
+    --paper-dim:#eeeae1;
+    --paper-line: rgba(24,22,26,.12);
+    --dark-line: rgba(247,244,238,.14);
+
+    /* palette sampled directly from the Lineart HP logo mark */
+    --blue:#39c1e6;        /* logo body / beak */
+    --blue-deep:#0e7490;   /* darker shade, used for solid buttons (contrast-safe) */
+    --green:#2eab72;       /* logo feather - green */
+    --gold:#f0c94a;        /* logo feather - gold */
+    --red:#e14b53;         /* logo feather - red */
+    --navy:#1b1d3a;        /* logo feather - deep navy */
+
+    --accent:var(--blue-deep);
+    --accent-dim:#d7f1f8;
+    --muted:#6f6a60;
+    --muted-dark:#b6b0a4;
+    --radius:2px;
+    --radius-card:18px;
+    --maxw:1180px;
+    --ease:cubic-bezier(.19,1,.22,1);
+    --shadow-card: 0 1px 2px rgba(20,20,30,.05), 0 1px 1px rgba(20,20,30,.04);
+    --shadow-card-hover: 0 22px 40px -12px rgba(20,20,40,.22), 0 4px 10px rgba(20,20,40,.06);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+  h1,h2,h3{font-family:'Bebas Neue',Impact,sans-serif; letter-spacing:.01em; margin:0; text-transform:uppercase; line-height:.92;}
+  .mono{font-family:'JetBrains Mono',monospace; letter-spacing:.06em; text-transform:uppercase;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  /* crop-mark motif */
+  .crop{position:relative;}
+  .crop::before,.crop::after{
+    content:""; position:absolute; width:16px; height:16px;
+    border-color:currentColor; opacity:.5; pointer-events:none;
+  }
+  .crop::before{ top:-1px; left:-1px; border-top:1.5px solid; border-left:1.5px solid; }
+  .crop::after{ bottom:-1px; right:-1px; border-bottom:1.5px solid; border-right:1.5px solid; }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:500; color:var(--muted);
+  }
+  .eyebrow .dot{width:6px; height:6px; background:var(--accent); border-radius:50%; flex:none;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 26px; font-family:'Inter'; font-weight:700; font-size:14.5px;
+    text-decoration:none; border-radius:var(--radius); border:1px solid transparent;
+    transition:transform .25s var(--ease), background .25s, color .25s, border-color .25s;
+    cursor:pointer; white-space:nowrap;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--accent); color:#fff; }
+  .btn-primary:hover{ background:#0b5c73; }
+  .btn-ghost-dark{ border-color:var(--dark-line); color:var(--paper); }
+  .btn-ghost-dark:hover{ border-color:var(--paper); }
+  .btn-ghost-light{ border-color:var(--paper-line); color:var(--ink); }
+  .btn-ghost-light:hover{ border-color:var(--ink); }
+
+  section{ padding:96px 0; }
+  @media (max-width:780px){ section{ padding:64px 0; } }
+
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(38px,5vw,56px); margin-top:10px; }
+  .section-head p{ color:var(--muted); font-size:16.5px; margin-top:14px; max-width:520px; }
+  .on-dark .section-head p{ color:var(--muted-dark); }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:60;
+    background:rgba(247,244,238,.86); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--paper-line);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:76px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:'Bebas Neue'; font-size:22px; letter-spacing:.03em; text-decoration:none; }
+  .brand img{ height:28px; width:auto; }
+  .nav-links{ display:flex; align-items:center; gap:34px; list-style:none; margin:0; padding:0; }
+  .nav-links a{ text-decoration:none; font-size:14px; font-weight:600; color:var(--ink); position:relative; padding:4px 0; }
+  .nav-links a::after{ content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; transition:transform .3s var(--ease); }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+  .nav-right{ display:flex; align-items:center; gap:22px; }
+  .burger{ display:none; background:none; border:0; cursor:pointer; padding:8px; }
+  .burger span{ display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; transition:.3s; }
+
+  @media (max-width:900px){
+    .nav-links{ position:fixed; inset:76px 0 0 0; background:var(--paper); flex-direction:column; justify-content:flex-start; padding:40px 24px; gap:0; transform:translateX(100%); transition:transform .35s var(--ease); overflow-y:auto; }
+    .nav-links.open{ transform:translateX(0); }
+    .nav-links li{ width:100%; border-bottom:1px solid var(--paper-line); }
+    .nav-links a{ display:block; padding:18px 4px; font-size:19px; }
+    .nav-right .btn-label{ display:none; }
+    .burger{ display:block; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--ink); color:var(--paper);
+    padding:76px 0 0 0;
+    position:relative; overflow:hidden;
+  }
+  .hero .wrap{ position:relative; z-index:2; padding-bottom:64px; }
+  .hero-top{ display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:34px; }
+  .hero-top .eyebrow{ color:var(--muted-dark); }
+  .hero-headline{ max-width:820px; }
+  .hero-headline .line1{
+    display:block; font-family:'Inter'; text-transform:none; font-weight:600;
+    font-size:clamp(22px,3.4vw,34px); letter-spacing:0; color:var(--paper); line-height:1.3;
+  }
+  .hero-headline .line2{
+    display:block; font-family:'Oswald',sans-serif; text-transform:uppercase; font-weight:300;
+    font-size:clamp(46px,6.4vw,86px); line-height:1; color:var(--blue); margin-top:8px; letter-spacing:.045em;
+  }
+  .hero-sub{ display:flex; gap:40px; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; margin-top:34px; border-top:1px solid var(--dark-line); padding-top:28px; }
+  .hero-sub p{ max-width:420px; color:var(--muted-dark); font-size:16px; margin:0; }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  .grain-line{ position:absolute; inset:0; pointer-events:none; opacity:.05; background-image:repeating-linear-gradient(0deg, var(--paper) 0 1px, transparent 1px 3px); }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee-section{ padding:88px 0 96px; border-bottom:1px solid var(--paper-line); background:var(--paper); }
+  .marquee-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; margin-bottom:44px; }
+  .marquee-head h2{ font-size:clamp(34px,4.4vw,48px); }
+  .marquee-row{ overflow:hidden; margin:14px 0; }
+  .marquee-track{ display:flex; gap:14px; width:max-content; animation:scroll-left 60s linear infinite; }
+  .marquee-track.rev{ animation:scroll-right 68s linear infinite; }
+  .marquee-track img{ height:180px; width:260px; object-fit:cover; border-radius:12px; filter:grayscale(15%); box-shadow:var(--shadow-card); transition:filter .35s, box-shadow .35s, transform .35s var(--ease); }
+  .marquee-track img:hover{ filter:grayscale(0%); box-shadow:var(--shadow-card-hover); transform:translateY(-6px); }
+  @keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @keyframes scroll-right{ from{transform:translateX(-50%);} to{transform:translateX(0);} }
+  @media (max-width:780px){ .marquee-track img{ height:130px; width:190px; } }
+
+  /* ---------- VANTAGENS ---------- */
+  .vantagens{ background:#f2efe8; }
+  .v-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+  .v-card{
+    background:#fff; padding:34px 26px; border-radius:var(--radius-card);
+    border:1px solid rgba(24,22,26,.06);
+    box-shadow:var(--shadow-card);
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+    position:relative; overflow:hidden;
+  }
+  .v-card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:4px;
+    background:var(--card-color, var(--blue)); transform:scaleX(0); transform-origin:left;
+    transition:transform .45s var(--ease);
+  }
+  .v-card:hover{ transform:translateY(-8px); box-shadow:var(--shadow-card-hover); border-color:transparent; }
+  .v-card:hover::before{ transform:scaleX(1); }
+  .v-card .mark-badge{
+    width:52px; height:52px; border-radius:14px; margin-bottom:24px;
+    display:flex; align-items:center; justify-content:center;
+    background:color-mix(in srgb, var(--card-color, var(--blue)) 14%, white);
+    transition:transform .4s var(--ease), background .4s var(--ease);
+  }
+  .v-card:hover .mark-badge{ transform:scale(1.08) rotate(-4deg); background:var(--card-color, var(--blue)); }
+  .v-card:hover .mark-badge svg{ stroke:#fff; }
+  .v-card .mark-badge svg{ width:26px; height:26px; stroke:var(--card-color, var(--blue)); transition:stroke .4s var(--ease); }
+  .v-card h3{ font-size:21px; text-transform:none; font-family:'Inter'; font-weight:700; letter-spacing:0; margin-bottom:10px; }
+  .v-card p{ color:var(--muted); font-size:14.5px; margin:0; }
+  .v-card.c-blue{ --card-color:var(--blue-deep); }
+  .v-card.c-green{ --card-color:var(--green); }
+  .v-card.c-gold{ --card-color:#c99a1a; }
+  .v-card.c-red{ --card-color:var(--red); }
+  @media (max-width:900px){ .v-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .v-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- SOBRE ---------- */
+  .sobre .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+  .sobre-copy p{ color:var(--muted); font-size:16px; margin:0 0 18px; }
+  .sobre-img{ position:relative; }
+  .sobre-img img{ border-radius:var(--radius-card); width:100%; height:auto; object-fit:cover; aspect-ratio:4/3; box-shadow:var(--shadow-card-hover); }
+  @media (max-width:900px){ .sobre .wrap{ grid-template-columns:1fr; gap:40px; } .sobre-img{ order:-1; } }
+
+  /* ---------- CLIENTES ---------- */
+  .clientes{ background:var(--ink); color:var(--paper); }
+  .clientes .section-head h2, .clientes .section-head p{ color:var(--paper); }
+  .clientes .section-head p{ color:var(--muted-dark); }
+  .logo-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .logo-cell{
+    background:var(--paper); border-radius:14px; display:flex; align-items:center; justify-content:center;
+    padding:22px 20px; height:96px; box-shadow:var(--shadow-card);
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .logo-cell:hover{ transform:translateY(-5px); box-shadow:var(--shadow-card-hover); }
+  .logo-cell img{ max-height:38px; width:auto; max-width:100%; opacity:1; }
+  @media (max-width:900px){ .logo-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:560px){ .logo-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ---------- AVALIACOES ---------- */
+  .avaliacoes{ text-align:center; }
+  .avaliacoes .wrap{ max-width:720px; }
+  .avaliacoes .eyebrow{ justify-content:center; }
+  .avaliacoes h2{ font-size:clamp(34px,4.6vw,52px); margin-top:12px; }
+  .avaliacoes p{ color:var(--muted); font-size:17px; margin:20px auto 30px; max-width:560px; }
+  .stars{ font-size:22px; letter-spacing:4px; color:var(--gold); margin-bottom:8px; }
+
+  /* ---------- GOOGLE REVIEWS (live) ---------- */
+  .google-reviews{ margin:30px 0 34px; }
+  .g-rating{ display:flex; flex-direction:column; align-items:center; gap:4px; margin-bottom:8px; }
+  .g-rating .g-score{ font-family:'Bebas Neue'; font-size:44px; line-height:1; color:var(--ink); }
+  .g-rating .g-count{ font-size:13.5px; color:var(--muted); font-weight:500; }
+  .g-review-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:34px; text-align:left; }
+  .g-review-card{ background:#fff; border:1px solid rgba(24,22,26,.06); border-radius:var(--radius-card); padding:22px; box-shadow:var(--shadow-card); transition:transform .35s var(--ease), box-shadow .35s var(--ease); }
+  .g-review-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-card-hover); }
+  .g-review-head{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .g-review-head img{ width:36px; height:36px; border-radius:50%; object-fit:cover; }
+  .g-review-head strong{ display:block; font-size:13.5px; }
+  .stars.small{ color:var(--gold); font-size:12px; letter-spacing:1px; }
+  .g-review-card p{ font-size:13.5px; color:var(--muted); margin:0; line-height:1.55; }
+  @media (max-width:780px){ .g-review-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- FAQ ---------- */
+  .faq-wrap{ display:grid; grid-template-columns:.85fr 1.15fr; gap:64px; }
+  .faq-list{ border-top:1px solid var(--paper-line); }
+  .faq-item{ border-bottom:1px solid var(--paper-line); }
+  .faq-q{
+    width:100%; text-align:left; background:none; border:0; cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:22px 2px; font-family:'Inter'; font-weight:700; font-size:16px; color:var(--ink);
+  }
+  .faq-q .plus{ position:relative; width:16px; height:16px; flex:none; }
+  .faq-q .plus::before,.faq-q .plus::after{ content:""; position:absolute; background:var(--ink); transition:transform .3s var(--ease); }
+  .faq-q .plus::before{ top:50%; left:0; width:100%; height:2px; transform:translateY(-50%); }
+  .faq-q .plus::after{ left:50%; top:0; width:2px; height:100%; transform:translateX(-50%); }
+  .faq-item.open .plus::after{ transform:translateX(-50%) rotate(90deg); opacity:0; }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .35s var(--ease); }
+  .faq-a p{ margin:0 2px 22px; color:var(--muted); font-size:15px; max-width:560px; }
+  .faq-side{ position:sticky; top:110px; align-self:start; }
+  .faq-side .card{ background:var(--ink); color:var(--paper); padding:36px; border-radius:var(--radius); }
+  .faq-side h3{ font-size:26px; margin-bottom:12px; }
+  .faq-side p{ color:var(--muted-dark); font-size:14.5px; margin:0 0 24px; }
+  @media (max-width:900px){ .faq-wrap{ grid-template-columns:1fr; gap:36px;} .faq-side{ position:static; } }
+
+  /* ---------- CONTATO ---------- */
+  .contato{ background:var(--paper-dim); }
+  .contato-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--paper-line); border:1px solid var(--paper-line); }
+  .contato-info{ background:var(--paper-dim); padding:52px 44px; }
+  .contato-info h2{ font-size:clamp(32px,4vw,44px); }
+  .contato-info > p{ color:var(--muted); font-size:15.5px; margin:16px 0 34px; max-width:420px; }
+  .contact-row{ display:flex; gap:16px; padding:16px 0; border-top:1px solid var(--paper-line); }
+  .contact-row:last-of-type{ border-bottom:1px solid var(--paper-line); }
+  .contact-row .mono{ font-size:11px; color:var(--muted); width:90px; flex:none; padding-top:3px; }
+  .contact-row a, .contact-row span{ font-size:15.5px; font-weight:600; text-decoration:none; }
+  .social-row{ display:flex; gap:14px; margin-top:28px; }
+  .social-row a{ font-size:13px; font-weight:700; text-decoration:none; border:1px solid var(--paper-line); padding:9px 16px; border-radius:var(--radius); transition:.25s; }
+  .social-row a:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .contato-map{ min-height:340px; background:var(--ink); }
+  .contato-map iframe{ width:100%; height:100%; min-height:340px; border:0; }
+  @media (max-width:900px){ .contato-wrap{ grid-template-columns:1fr; } .contato-info{ padding:40px 24px; } }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--ink); color:var(--muted-dark); padding:36px 0; }
+  .foot-wrap{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; font-size:13px; }
+  .foot-wrap a{ text-decoration:none; color:var(--muted-dark); }
+  .foot-wrap a:hover{ color:var(--paper); }
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .wa-float{ position:fixed; right:22px; bottom:22px; z-index:70; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  .wa-bubble{
+    background:#fff; color:var(--ink); border-radius:10px; padding:14px 16px; max-width:230px;
+    box-shadow:0 12px 30px rgba(0,0,0,.18); font-size:13.5px; line-height:1.4;
+    transform:translateY(8px); opacity:0; pointer-events:none; transition:.3s var(--ease);
+  }
+  .wa-bubble.show{ opacity:1; transform:translateY(0); }
+  .wa-bubble strong{ display:block; margin-bottom:2px; }
+  .wa-btn{
+    width:58px; height:58px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 24px rgba(0,0,0,.25); border:0; cursor:pointer; text-decoration:none;
+  }
+  .wa-btn svg{ width:28px; height:28px; fill:#fff; }
+
+  /* reveal on scroll */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* =====================================================================
+     TEMA ESCURO
+     Ativado com <html data-theme="dark">. Reaproveita os mesmos tokens
+     (--ink permanece a base escura da marca, usada no header, hero,
+     rodapé etc. em ambas as versões) e inverte apenas as superfícies
+     que eram claras no tema padrão.
+  ===================================================================== */
+  html[data-theme="dark"]{
+    --muted: #a9a6c2;
+    --paper-line: rgba(247,244,238,.12);
+  }
+  html[data-theme="dark"] body{ background:var(--ink); color:var(--paper); }
+
+  html[data-theme="dark"] header{
+    background:rgba(11,11,12,.86);
+    border-bottom-color:rgba(247,244,238,.12);
+  }
+  html[data-theme="dark"] .brand,
+  html[data-theme="dark"] .nav-links a,
+  html[data-theme="dark"] .burger span{ color:var(--paper); }
+  html[data-theme="dark"] .burger span{ background:var(--paper); }
+  html[data-theme="dark"] .nav-links{ background:var(--ink); }
+  html[data-theme="dark"] .nav-links li{ border-bottom-color:rgba(247,244,238,.10); }
+
+  html[data-theme="dark"] .btn-ghost-light{ color:var(--paper); border-color:rgba(247,244,238,.22); }
+  html[data-theme="dark"] .btn-ghost-light:hover{ border-color:var(--paper); background:var(--paper); color:var(--ink); }
+
+  html[data-theme="dark"] .marquee-section{ background:var(--ink); border-bottom-color:rgba(247,244,238,.10); }
+
+  html[data-theme="dark"] .vantagens{ background:#0f0f10; }
+  html[data-theme="dark"] .v-card{ background:#1a1a1c; border-color:rgba(247,244,238,.08); }
+  html[data-theme="dark"] .v-card p{ color:var(--muted-dark); }
+  html[data-theme="dark"] .v-card .mark-badge{ background:color-mix(in srgb, var(--card-color, var(--blue)) 26%, #0f0f10); }
+  html[data-theme="dark"] .v-card .mark-badge svg{ stroke:var(--card-color, var(--blue)); }
+  html[data-theme="dark"] .v-card:hover .mark-badge svg{ stroke:#fff; }
+
+  html[data-theme="dark"] .sobre-copy p{ color:var(--muted-dark); }
+
+  html[data-theme="dark"] .g-rating .g-score{ color:var(--paper); }
+  html[data-theme="dark"] .g-rating .g-count{ color:var(--muted-dark); }
+  html[data-theme="dark"] .g-review-card{ background:#1a1a1c; border-color:rgba(247,244,238,.08); }
+  html[data-theme="dark"] .g-review-card p{ color:var(--muted-dark); }
+
+  html[data-theme="dark"] .faq-q{ color:var(--paper); }
+  html[data-theme="dark"] .faq-q .plus::before,
+  html[data-theme="dark"] .faq-q .plus::after{ background:var(--paper); }
+  html[data-theme="dark"] .faq-a p{ color:var(--muted-dark); }
+  html[data-theme="dark"] .faq-list{ border-top-color:rgba(247,244,238,.10); }
+  html[data-theme="dark"] .faq-item{ border-bottom-color:rgba(247,244,238,.10); }
+  html[data-theme="dark"] .faq-side .card{ background:#1a1a1c; }
+
+  html[data-theme="dark"] .contato{ background:#0f0f10; }
+  html[data-theme="dark"] .contato-wrap{ background:rgba(247,244,238,.08); border-color:rgba(247,244,238,.08); }
+  html[data-theme="dark"] .contato-info{ background:#1a1a1c; }
+  html[data-theme="dark"] .contato-info > p{ color:var(--muted-dark); }
+  html[data-theme="dark"] .contact-row{ border-top-color:rgba(247,244,238,.10); }
+  html[data-theme="dark"] .contact-row:last-of-type{ border-bottom-color:rgba(247,244,238,.10); }
+  html[data-theme="dark"] .contact-row .mono{ color:var(--muted-dark); }
+  html[data-theme="dark"] .social-row a{ border-color:rgba(247,244,238,.18); }
+  html[data-theme="dark"] .contato-map{ padding:10px; display:flex; align-items:center; justify-content:center; }
+  html[data-theme="dark"] .contato-map iframe{ border-radius:8px; }
+
+  html[data-theme="dark"] .wa-bubble{ background:#1a1a1c; color:var(--paper); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#home" class="brand">
+      <img src="https://linearthp.com/assets/2026/07/logo_footer.webp" alt="Lineart HP">
+      LINEART HP
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servico">Serviço</a></li>
+      <li><a href="https://wa.me/5547999922659?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20tenho%20interesse%20em%20um%20or%C3%A7amento.">Orçamento</a></li>
+      <li><a href="https://linearthp.com/portfolio/">Portfólio</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="https://wa.me/5547999922659?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20tenho%20interesse%20em%20um%20or%C3%A7amento." class="btn btn-primary"><span class="btn-label">Solicitar orçamento</span></a>
+      <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="grain-line" aria-hidden="true"></div>
+  <div class="wrap crop">
+    <div class="hero-top">
+      <span class="eyebrow"><span class="dot"></span> Referência em comunicação visual · Blumenau/SC</span>
+    </div>
+    <h1 class="hero-headline">
+      <span class="line1">Sua marca em destaque com impacto visual</span>
+      <span class="line2">Gigante!</span>
+    </h1>
+    <div class="hero-sub">
+      <p>Transformamos grandes formatos em poderosas vitrines que atraem clientes e aumentam suas vendas.</p>
+      <div class="hero-ctas">
+        <a href="https://wa.me/5547999922659?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20tenho%20interesse%20em%20um%20or%C3%A7amento." class="btn btn-primary">Solicite um orçamento</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="marquee-section" id="servico-preview">
+  <div class="wrap">
+    <div class="marquee-head reveal">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> Portfólio</span>
+        <h2>Transformando ideias em<br>experiências visuais</h2>
+        <p style="color:var(--muted); margin-top:14px; max-width:460px;">Veja o que já realizamos — do outdoor gigante ao adesivo de precisão.</p>
+      </div>
+      <a href="https://wa.me/5547996050601" class="btn btn-ghost-light">Saiba mais</a>
+    </div>
+  </div>
+  <div class="marquee-row">
+    <div class="marquee-track">
+      <img src="https://linearthp.com/assets/2026/07/32.jpg" alt="Projeto de comunicação visual Lineart HP" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/06.jpeg" alt="Impressão em grande formato" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/05-1.jpg" alt="Outdoor instalado" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/78.jpeg" alt="Fachada com comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/BANNER-03.jpg" alt="Banner de grande formato" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/IMG-20240528-WA0196.jpg" alt="Projeto executado pela Lineart HP" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/04-1.jpg" alt="Adesivagem de veículo" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/05.jpg" alt="Sinalização impressa" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/01-e1784048938697.jpeg" alt="Placa institucional" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/NIAN.jpg" alt="Projeto NIAN" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/MAIS-SABOR.jpg" alt="Projeto Mais Sabor" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/IMG-20240528-WA0178.jpg" alt="Projeto executado pela Lineart HP" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/73.jpeg" alt="Comunicação visual em lona" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/75.jpeg" alt="Comunicação visual em lona" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/72.jpeg" alt="Comunicação visual em lona" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/banner.jpeg" alt="Banner promocional" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/01-2.jpg" alt="Projeto de sinalização" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/32.jpg" alt="Projeto de comunicação visual Lineart HP" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/06.jpeg" alt="Impressão em grande formato" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/05-1.jpg" alt="Outdoor instalado" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/78.jpeg" alt="Fachada com comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/BANNER-03.jpg" alt="Banner de grande formato" loading="lazy">
+    </div>
+  </div>
+  <div class="marquee-row">
+    <div class="marquee-track rev">
+      <img src="https://linearthp.com/assets/2026/07/15-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/20-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/24-1.jpg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/25-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/32-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/33-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/57-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/59-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/71-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/72-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/75-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/78-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/80-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/Adesivo-vinilico-fosco-1.jpeg" alt="Adesivo vinílico fosco" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/01-219.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/FARMACIA.jpg" alt="Projeto para farmácia" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/MAROMA.jpg" alt="Projeto Maroma" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/OUTDOOR.jpg" alt="Outdoor gigante" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/15-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/20-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/24-1.jpg" alt="Projeto de comunicação visual" loading="lazy">
+      <img src="https://linearthp.com/assets/2026/07/25-1.jpeg" alt="Projeto de comunicação visual" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="vantagens" id="servico">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span> Por que a Lineart HP</span>
+      <h2>Nossas vantagens competitivas</h2>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="v-grid reveal">
+      <div class="v-card c-blue">
+        <div class="mark-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 12h11l-3-3m3 3-3 3M14 6h4l3 4v6h-3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg></div>
+        <h3>Entrega rápida</h3>
+        <p>Nossa frota própria assegura eficiência logística e total compromisso com prazos e qualidade.</p>
+      </div>
+      <div class="v-card c-green">
+        <div class="mark-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M8 20h8M12 16v4" stroke-linecap="round"/></svg></div>
+        <h3>Equipamentos de ponta</h3>
+        <p>Com equipamentos de ponta, garantimos máxima eficiência, precisão e qualidade em cada processo.</p>
+      </div>
+      <div class="v-card c-gold">
+        <div class="mark-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3v18M4 8l8-5 8 5v8l-8 5-8-5V8Z" stroke-linejoin="round"/></svg></div>
+        <h3>100% produção própria</h3>
+        <p>Com produção própria e sem terceirização, garantimos total controle de qualidade, agilidade e confiabilidade em cada etapa.</p>
+      </div>
+      <div class="v-card c-red">
+        <div class="mark-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6" stroke-linecap="round"/></svg></div>
+        <h3>Profissionais qualificados</h3>
+        <p>Contamos com profissionais extremamente qualificados, garantindo excelência, precisão e soluções de alto nível.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sobre" id="sobre">
+  <div class="wrap">
+    <div class="sobre-copy reveal">
+      <span class="eyebrow"><span class="dot"></span> Sobre a empresa</span>
+      <h2 style="margin:12px 0 26px; font-size:clamp(34px,4.4vw,50px);">Conheça a Lineart HP</h2>
+      <p>Localizada estrategicamente em Blumenau, no coração pulsante de Santa Catarina, a Lineart HP se consagra como referência absoluta em comunicação visual. Somos especialistas em produções de excelência, destacando-nos na impressão de outdoors imponentes em lona, cartazes marcantes em papel e na criação de projetos especiais e eventos memoráveis que transformam ideias em experiências inesquecíveis.</p>
+      <p>Nossa equipe reúne profissionais de altíssimo nível, cuja dedicação e expertise asseguram resultados que ultrapassam padrões convencionais. Com uma trajetória sólida e uma reputação inquestionável, conquistamos a confiança de clientes e fornecedores, consolidando-nos como parceiros estratégicos de excelência.</p>
+      <p>Na Lineart HP, cada projeto é tratado como único. Valorizamos o atendimento personalizado, a confiança mútua e a agilidade impecável em todas as etapas. Da concepção à entrega final, nosso compromisso é superar expectativas e transformar sua visão em uma realidade impactante e memorável.</p>
+      <a href="https://wa.me/5547999922659?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20tenho%20interesse%20em%20um%20or%C3%A7amento." class="btn btn-primary" style="margin-top:8px;">Fale conosco</a>
+    </div>
+    <div class="sobre-img reveal crop">
+      <img src="assets/img/sobre/empresa.jpeg" alt="Equipe e instalações da Lineart HP em Blumenau">
+    </div>
+  </div>
+</section>
+
+<section class="clientes">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="dot"></span> Confiança de mercado</span>
+      <h2>Quem confia em nosso trabalho</h2>
+      <p>Empresas que confiam na nossa qualidade para executar e instalar seus projetos de comunicação visual.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="logo-grid reveal">
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/wk.jpg" alt="WK" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/viacredi-e1785895114724.png" alt="Viacredi" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/Sicredi-e1785895223728.png" alt="Sicredi" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/oktober.jpg" alt="Oktoberfest" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/oceanic-e1785895200630.jpg" alt="Oceanic" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/beto.jpg" alt="Beto" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/beagle-e1785895155273.png" alt="Beagle" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/karsten-e1785895179596.png" alt="Karsten" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/millium.jpg" alt="Millium" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/cooper.jpg" alt="Cooper" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/vex.png" alt="Vex" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/comper.jpg" alt="Comper" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/FARMACIASEMPREFORT-e1785895252327.png" alt="Farmácia Sempre Forte" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/Brandili.png" alt="Brandili" loading="lazy"></div>
+      <div class="logo-cell"><img src="https://linearthp.com/assets/2026/07/adeventista.jpg" alt="Adventista" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="avaliacoes" id="avaliacoes">
+  <div class="wrap reveal">
+    <span class="eyebrow"><span class="dot"></span> Reconhecimento</span>
+    <h2>Reconhecimento que vem<br>de quem mais importa</h2>
+    <p>As avaliações no Google comprovam: qualidade, confiança e resultados que fazem a diferença em cada projeto.</p>
+
+    <div id="googleReviews" class="google-reviews">
+      <div class="g-rating">
+        <span class="stars">★★★★★</span>
+        <span class="g-count">Avaliações verificadas no Google</span>
+      </div>
+    </div>
+
+    <a href="https://maps.google.com/maps?q=Rua%20Prof.%20Jacob%20Ineichen%201819%20itoupavazinha%20Blumenau%2FSC" class="btn btn-ghost-light" target="_blank" rel="noopener">Ver todas as avaliações no Google</a>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="faq-wrap">
+      <div class="reveal">
+        <span class="eyebrow"><span class="dot"></span> FAQ</span>
+        <h2 style="font-size:clamp(34px,4.2vw,48px); margin:12px 0 16px;">Perguntas frequentes</h2>
+        <p style="color:var(--muted); font-size:15.5px; max-width:400px;">Encontre aqui as respostas para as dúvidas mais comuns na área de comunicação visual.</p>
+
+        <div class="faq-side" style="margin-top:36px; position:static;">
+          <div class="card">
+            <h3>Ainda tem dúvidas?</h3>
+            <p>Entre em contato conosco e vamos te ajudar a iniciar sua transformação!</p>
+            <a href="#contato" class="btn btn-primary">Quero fazer um orçamento!</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">O preço está um pouco acima do que eu esperava?<span class="plus"></span></button>
+          <div class="faq-a"><p>Entendemos que o investimento é importante. Nossos valores refletem a qualidade dos materiais, a durabilidade da impressão e o cuidado com cada detalhe. Além disso, oferecemos opções personalizadas para diferentes orçamentos — sem abrir mão do impacto visual.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Será que realmente vai chamar atenção?<span class="plus"></span></button>
+          <div class="faq-a"><p>Nosso foco é criar peças que não só chamam atenção, mas que comunicam sua marca com clareza e estilo. Usamos cores vibrantes, acabamentos profissionais e design estratégico para garantir que sua comunicação se destaque onde estiver.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">E se o resultado não ficar como eu imaginei?<span class="plus"></span></button>
+          <div class="faq-a"><p>Antes de qualquer produção, enviamos uma arte digital para sua aprovação. Você pode solicitar ajustes até que esteja 100% satisfeito. Só seguimos com a impressão quando você der o sinal verde.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Vocês entregam dentro do prazo mesmo?<span class="plus"></span></button>
+          <div class="faq-a"><p>Compromisso com prazo é uma das nossas prioridades. Trabalhamos com cronogramas claros e comunicação constante para garantir que sua entrega chegue no tempo certo — sem surpresas.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Já tive problemas com outras gráficas. Por que confiar em vocês?<span class="plus"></span></button>
+          <div class="faq-a"><p>Além de nossa experiência no mercado, temos avaliações positivas e uma base sólida de clientes recorrentes. Transparência, qualidade e atendimento são pilares do nosso trabalho — e estamos sempre disponíveis para esclarecer qualquer dúvida.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Vocês fazem tudo internamente ou terceirizam?<span class="plus"></span></button>
+          <div class="faq-a"><p>A maior parte da produção é feita internamente, o que nos dá controle total sobre qualidade e prazos. Quando usamos parceiros, são fornecedores de confiança que seguem nossos padrões rigorosos.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Vale mesmo a pena investir em comunicação visual?<span class="plus"></span></button>
+          <div class="faq-a"><p>Com certeza. A comunicação visual é o primeiro contato que muitos clientes terão com sua marca. Um bom design transmite profissionalismo, atrai atenção e aumenta a percepção de valor do seu negócio. É um investimento que gera retorno.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contato" id="contato">
+  <div class="wrap">
+    <div class="contato-wrap reveal">
+      <div class="contato-info">
+        <span class="eyebrow"><span class="dot"></span> Contatos</span>
+        <h2>Vamos conversar</h2>
+        <p>Fale com a gente! Estamos prontos para transformar suas ideias em impacto visual. Solicite um orçamento ou tire suas dúvidas — será um prazer atender você.</p>
+
+        <div class="contact-row">
+          <span class="mono">Endereço</span>
+          <span>R. Prof. Jacob Ineichen 1819, Blumenau/SC</span>
+        </div>
+        <div class="contact-row">
+          <span class="mono">Telefone</span>
+          <a href="https://wa.me/5547999922659?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20tenho%20interesse%20em%20um%20or%C3%A7amento.">(47) 99992-2659</a>
+        </div>
+        <div class="contact-row">
+          <span class="mono">E-mail</span>
+          <a href="mailto:atendimento@linearthp.com">atendimento@linearthp.com</a>
+        </div>
+
+        <div class="social-row">
+          <a href="https://www.facebook.com/people/Lineart-HP/61592548723599/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.instagram.com/linearthp/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://wa.me/5547999922659?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20tenho%20interesse%20em%20um%20or%C3%A7amento." target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <div class="contato-map">
+        <iframe src="https://maps.google.com/maps?q=Rua%20Prof.%20Jacob%20Ineichen%201819%20itoupavazinha%20Blumenau%2FSC&t=m&z=14&output=embed&iwloc=near" loading="lazy" title="Localização Lineart HP no mapa"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-wrap">
+    <span>© 2026 Lineart HP · CNPJ 32.475.168/0001-40 · Todos os direitos reservados.</span>
+    <nav style="display:flex; gap:22px;">
+      <a href="#sobre">Sobre</a>
+      <a href="#servico">Serviço</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="wa-float">
+  <div class="wa-bubble" id="waBubble">
+    <strong>Oi! Olá 👋 Bem-vindo à Lineart HP</strong>
+    Podemos te ajudar? Abrir bate-papo.
+  </div>
+  <a href="https://wa.me/5547999922659?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20tenho%20interesse%20em%20um%20or%C3%A7amento." class="wa-btn" id="waBtn" aria-label="Abrir conversa no WhatsApp" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4h.01c6.5 0 11.8-5.3 11.8-11.8 0-3.1-1.2-6.1-3.4-8.4ZM12.1 21.6h-.01a9.8 9.8 0 0 1-5-1.4l-.36-.21-3.85 1 1-3.75-.24-.39a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.4 9.85-9.85 9.85Zm5.4-7.35c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.9-2.2-.24-.58-.48-.5-.67-.5-.17 0-.37-.02-.57-.02-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.1 4.5.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.08 1.76-.72 2-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>
+  </a>
+</div>
+
+<script>
+  /* =====================================================================
+     AVALIAÇÕES DO GOOGLE — SEMPRE ATUALIZADAS
+     ---------------------------------------------------------------------
+     Para exibir a nota e os comentários reais e sempre atuais do Google
+     nesta seção, preencha as duas linhas abaixo:
+
+     1) GOOGLE_MAPS_API_KEY: crie uma chave em
+        https://console.cloud.google.com/google/maps-apis
+        habilitando a API "Places API (New)".
+
+     2) GOOGLE_PLACE_ID: encontre o Place ID da Lineart HP em
+        https://developers.google.com/maps/documentation/places/web-service/place-id
+
+     Com as duas chaves preenchidas, a página passa a buscar a nota,
+     o total de avaliações e os comentários mais recentes diretamente
+     do Google a cada carregamento — sem precisar editar o site depois.
+     Enquanto os campos estiverem vazios, o texto padrão abaixo continua
+     sendo exibido normalmente.
+  ===================================================================== */
+  const GOOGLE_MAPS_API_KEY = "";
+  const GOOGLE_PLACE_ID = "";
+
+  function renderGoogleReviews(place){
+    const wrap = document.getElementById('googleReviews');
+    if(!wrap) return;
+    const rating = place.rating ? place.rating.toFixed(1) : '';
+    const count = place.userRatingCount || 0;
+    const fullStars = Math.round(place.rating || 5);
+    let html = `<div class="g-rating">
+      <span class="g-score">${rating}</span>
+      <span class="stars">${'★'.repeat(fullStars)}${'☆'.repeat(5-fullStars)}</span>
+      <span class="g-count">${count} avaliações no Google</span>
+    </div>`;
+    const reviews = (place.reviews || []).slice(0, 6);
+    if(reviews.length){
+      html += '<div class="g-review-grid">';
+      reviews.forEach(r => {
+        const name = (r.authorAttribution && r.authorAttribution.displayName) || 'Cliente Google';
+        const photo = (r.authorAttribution && r.authorAttribution.photoURI) || '';
+        const stars = '★'.repeat(r.rating || 5);
+        const text = (r.text ? r.text.toString() : '').slice(0, 220);
+        html += `<div class="g-review-card">
+          <div class="g-review-head">
+            ${photo ? `<img src="${photo}" alt="" loading="lazy">` : ''}
+            <div><strong>${name}</strong><span class="stars small">${stars}</span></div>
+          </div>
+          <p>${text}</p>
+        </div>`;
+      });
+      html += '</div>';
+    }
+    wrap.innerHTML = html;
+  }
+
+  async function initGoogleReviews(){
+    try{
+      const { Place } = await google.maps.importLibrary("places");
+      const place = new Place({ id: GOOGLE_PLACE_ID });
+      await place.fetchFields({ fields: ["rating", "userRatingCount", "reviews"] });
+      renderGoogleReviews(place);
+    }catch(err){
+      console.warn('Não foi possível carregar as avaliações do Google:', err);
+    }
+  }
+
+  if(GOOGLE_MAPS_API_KEY && GOOGLE_PLACE_ID){
+    window.initGoogleReviews = initGoogleReviews;
+    const gscript = document.createElement('script');
+    gscript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initGoogleReviews&v=weekly`;
+    gscript.async = true;
+    gscript.defer = true;
+    document.head.appendChild(gscript);
+  }
+</script>
+
+<script>
+  // mobile nav
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+  }));
+
+  // faq accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(other => {
+        if(other !== item){
+          other.classList.remove('open');
+          other.querySelector('.faq-q').setAttribute('aria-expanded','false');
+          other.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      q.setAttribute('aria-expanded', String(!isOpen));
+      a.style.maxHeight = !isOpen ? a.scrollHeight + 'px' : null;
+    });
+  });
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // whatsapp bubble greeting
+  setTimeout(() => document.getElementById('waBubble').classList.add('show'), 1400);
+</script>
+
+</body>
+</html>
